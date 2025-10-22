@@ -1,17 +1,25 @@
+import { log } from 'console'
 import './ToDoListItem.scss'
+import { ToDo } from '../../../models/todo-item';
 
 
 
-export const ToDoListItem = () => {
-  return(
-      <ul className="todo-list failed">
+export const ToDoListItem = (props: { toDoItem: ToDo, updateToDo: Function, deleteToDo: Function }) => {
+    console.log(props);
+    return (
+        <ul className="todo-list failed">
             <li className="todo-list-item__wrapper">
-                <span>Первая задача</span>
+                <span>{props.toDoItem.text}</span>
                 <div className="todo-list-item__buttons">
-                    <button className="btn-trash"></button>
-                    <button className="btn-check"></button>
+                    <button
+                        className="btn-trash"
+                        onClick={() => props.deleteToDo(props.toDoItem)}
+                    ></button>
+                    <button className={props.toDoItem.isDone ? 'btn-check' : 'btn-uncheck'}
+                        onClick={() => props.updateToDo(props.toDoItem)}
+                    ></button>
                 </div>
             </li>
         </ul>
-  )
+    )
 }
